@@ -45,9 +45,12 @@ export function AdminRoom() {
     });
   }
 
-  async function handleHighlightQuestion(questionId: string) {
+  async function handleHighlightQuestion(
+    questionId: string,
+    isHighlighted: boolean
+  ) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-      isHighlighted: true,
+      isHighlighted: !isHighlighted,
     });
   }
 
@@ -94,7 +97,12 @@ export function AdminRoom() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleHighlightQuestion(question.id)}
+                      onClick={() =>
+                        handleHighlightQuestion(
+                          question.id,
+                          question.isHighlighted
+                        )
+                      }
                     >
                       <img src={answerImg} alt="Dar destaque à pergunta" />
                     </button>
